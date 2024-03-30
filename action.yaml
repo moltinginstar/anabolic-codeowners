@@ -1,0 +1,26 @@
+name: "Anabolic Codeowners"
+description: "CODEOWNERS on steroids. Built for monorepos."
+author: "moltinginstar"
+
+branding:
+  icon: "at-sign"
+  color: "red"
+
+inputs:
+  token:
+    description: "The GitHub token to use"
+    required: true
+
+  config:
+    description: "The configuration file to use"
+    required: false
+    default: ".github/codeowners.yaml"
+
+  num-reviewers:
+    description: "The number of reviewers to add"
+    required: false
+    default: "1"
+
+runs:
+  using: node20
+  main: dist/index.js
