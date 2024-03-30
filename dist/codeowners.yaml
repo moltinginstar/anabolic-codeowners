@@ -1,0 +1,25 @@
+apps/coach-tool/**/*:
+  - moltinginstar
+  - rrtyui228
+  - nairababayan
+  - tom-auger
+
+apps/coach-tool/src/app/app.component.ts:
+  - noooone
+
+apps/coach-tool-web/**/*:
+  - moltinginstar
+  - rrtyui228
+  - copacetic
+
+"!apps/coach-tool/**/*":
+  - noooone
+
+apps/workshop-management-api/**/*:
+  - levonbabayan
+
+libs/coach-tool-shared/**/*:
+  - moltinginstar
+  - rrtyui228
+  - nairababayan
+  - tom-auger
