@@ -29380,13 +29380,13 @@ const run = async () => {
     try {
         const token = core.getInput("token", { required: true });
         const client = (0, github_1.getOctokit)(token);
-        const configPath = core.getInput("config") || ".github/codeowners.yaml";
+        const configPath = core.getInput("config");
         const config = await (0, github_2.parseConfig)(client, configPath);
         const prAuthor = github_1.context.payload.sender?.login;
         const modifiedFiles = await (0, github_2.getModifiedFiles)(client);
         const owners = (0, match_1.matchOwners)(config, modifiedFiles, [prAuthor]);
         core.debug(`Owners: ${owners.join(", ")}`);
-        const numReviewers = +(core.getInput("num-reviewers") || 1);
+        const numReviewers = +core.getInput("num-reviewers");
         const reviewers = (0, util_1.chooseRandom)(owners, numReviewers);
         await Promise.all(reviewers.map((reviewer) => (0, github_2.assignReviewer)(client, reviewer)));
     }
