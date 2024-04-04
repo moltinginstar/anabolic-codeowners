@@ -1,231 +1,102 @@
-# Anabolic Codeowners
+<div align="center">
+  <img
+    src="assets/logo.png"
+    alt="Anabolic Codeowners logo"
+    width="200"
+  />
+
+  <h1>Anabolic Codeowners</h1>
+
+  <p>CODEOWNERS on steroids. Built for monorepos.</p>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
-[![GitHub Super-Linter](https://github.com/actions/typescript-action/actions/workflows/linter.yaml/badge.svg)](https://github.com/super-linter/super-linter)
-![CI](https://github.com/actions/typescript-action/actions/workflows/ci.yaml/badge.svg)
-[![Check dist/](https://github.com/actions/typescript-action/actions/workflows/check-dist.yaml/badge.svg)](https://github.com/actions/typescript-action/actions/workflows/check-dist.yaml)
-[![CodeQL](https://github.com/actions/typescript-action/actions/workflows/codeql-analysis.yaml/badge.svg)](https://github.com/actions/typescript-action/actions/workflows/codeql-analysis.yaml)
+[![GitHub Super-Linter](https://github.com/moltinginstar/anabolic-codeowners/actions/workflows/linter.yaml/badge.svg)](https://github.com/super-linter/super-linter)
+![CI](https://github.com/moltinginstar/anabolic-codeowners/actions/workflows/ci.yaml/badge.svg)
+[![Check dist/](https://github.com/moltinginstar/anabolic-codeowners/actions/workflows/check-dist.yaml/badge.svg)](https://github.com/actions/typescript-action/actions/workflows/check-dist.yaml)
+[![CodeQL](https://github.com/moltinginstar/anabolic-codeowners/actions/workflows/codeql-analysis.yaml/badge.svg)](https://github.com/actions/typescript-action/actions/workflows/codeql-analysis.yaml)
 [![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
 
-Use this template to bootstrap the creation of a TypeScript action. :rocket:
+</div>
 
-This template includes compilation support, tests, a validation workflow,
-publishing, and versioning guidance.
+Anabolic Codeowners enhances GitHub’s CODEOWNERS functionality, enabling random assignment of code reviewers with per-path granularity. It’s perfect for monorepos, ensuring balanced review workload distribution.
 
-If you are new, there's also a simpler introduction in the
-[Hello world JavaScript action repository](https://github.com/actions/hello-world-javascript-action).
+## Features
 
-## Create Your Own Action
-
-To create your own action, you can use this repository as a template! Just
-follow the below instructions:
-
-1. Click the **Use this template** button at the top of the repository
-1. Select **Create a new repository**
-1. Select an owner and name for your new repository
-1. Click **Create repository**
-1. Clone your new repository
-
-> [!IMPORTANT]
->
-> Make sure to remove or update the [`CODEOWNERS`](./CODEOWNERS) file! For
-> details on how to use this file, see
-> [About code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners).
-
-## Initial Setup
-
-After you've cloned the repository to your local machine or codespace, you'll
-need to perform some initial setup steps before you can develop your action.
-
-> [!NOTE]
->
-> You'll need to have a reasonably modern version of
-> [Node.js](https://nodejs.org) handy (20.x or later should work!). If you are
-> using a version manager like [`nodenv`](https://github.com/nodenv/nodenv) or
-> [`nvm`](https://github.com/nvm-sh/nvm), this template has a `.node-version`
-> file at the root of the repository that will be used to automatically switch
-> to the correct version when you `cd` into the repository. Additionally, this
-> `.node-version` file is used by GitHub Actions in any `actions/setup-node`
-> actions.
-
-1. :hammer_and_wrench: Install the dependencies
-
-   ```bash
-   pnpm install
-   ```
-
-1. :building_construction: Package the TypeScript for distribution
-
-   ```bash
-   pnpm run bundle
-   ```
-
-1. :white_check_mark: Run the tests
-
-   ```bash
-   $ pnpm test
-
-   PASS  ./index.test.js
-     ✓ throws invalid number (3ms)
-     ✓ wait 500 ms (504ms)
-     ✓ test runs (95ms)
-
-   ...
-   ```
-
-## Update the Action Metadata
-
-The [`action.yaml`](action.yaml) file defines metadata about your action, such as
-input(s) and output(s). For details about this file, see
-[Metadata syntax for GitHub Actions](https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions).
-
-When you copy this repository, update `action.yaml` with the name, description,
-inputs, and outputs for your action.
-
-## Update the Action Code
-
-The [`src/`](./src/) directory is the heart of your action! This contains the
-source code that will be run when your action is invoked. You can replace the
-contents of this directory with your own code.
-
-There are a few things to keep in mind when writing your action code:
-
-- Most GitHub Actions toolkit and CI/CD operations are processed asynchronously.
-  In `main.ts`, you will see that the action is run in an `async` function.
-
-  ```javascript
-  import * as core from "@actions/core";
-  //...
-
-  async function run() {
-    try {
-      //...
-    } catch (error) {
-      core.setFailed(error.message);
-    }
-  }
-  ```
-
-  For more information about the GitHub Actions toolkit, see the
-  [documentation](https://github.com/actions/toolkit/blob/master/README.md).
-
-So, what are you waiting for? Go ahead and start customizing your action!
-
-1. Create a new branch
-
-   ```bash
-   git checkout -b releases/v1
-   ```
-
-1. Replace the contents of `src/` with your action code
-1. Add tests to `__tests__/` for your source code
-1. Format, test, and build the action
-
-   ```bash
-   pnpm run all
-   ```
-
-   > This step is important! It will run [`ncc`](https://github.com/vercel/ncc)
-   > to build the final JavaScript action code with all dependencies included.
-   > If you do not run this step, your action will not work correctly when it is
-   > used in a workflow. This step also includes the `--license` option for
-   > `ncc`, which will create a license file for all of the production node
-   > modules used in your project.
-
-1. Commit your changes
-
-   ```bash
-   git add .
-   git commit -m "My first action is ready!"
-   ```
-
-1. Push them to your repository
-
-   ```bash
-   git push -u origin releases/v1
-   ```
-
-1. Create a pull request and get feedback on your action
-1. Merge the pull request into the `main` branch
-
-Your action is now published! :rocket:
-
-For information about versioning your action, see
-[Versioning](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-in the GitHub Actions toolkit.
-
-## Validate the Action
-
-You can now validate the action by referencing it in a workflow file. For
-example, [`ci.yaml`](./.github/workflows/ci.yaml) demonstrates how to reference an
-action in the same repository.
-
-```yaml
-steps:
-  - name: Checkout
-    id: checkout
-    uses: actions/checkout@v4
-
-  - name: Test Local Action
-    id: test-action
-    uses: ./
-    with:
-      milliseconds: 1000
-
-  - name: Print Output
-    id: output
-    run: echo "${{ steps.test-action.outputs.time }}"
-```
-
-For example workflow runs, check out the
-[Actions tab](https://github.com/actions/typescript-action/actions)! :rocket:
+- Randomly select reviewers from the configured pool to evenly distribute the review load
+- Assign reviewers to specific paths or files in your repository, mirroring CODEOWNERS syntax for intuitive setup
+- Flexibly set the number of reviewers per pull request to maintain balance between thorough review and efficiency
 
 ## Usage
 
-After testing, you can create version tag(s) that developers can use to
-reference different stable versions of your action. For more information, see
-[Versioning](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-in the GitHub Actions toolkit.
+### Definition
 
-To include the action in a workflow in another repository, you can use the
-`uses` syntax with the `@` symbol to reference a specific branch, tag, or commit
-hash.
+Create a workflow `.yaml` under `.github/workflows` like this:
 
 ```yaml
-steps:
-  - name: Checkout
-    id: checkout
-    uses: actions/checkout@v4
+name: Assign Reviewers
 
-  - name: Test Local Action
-    id: test-action
-    uses: actions/typescript-action@v1 # Commit with the `v1` tag
-    with:
-      milliseconds: 1000
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - ready_for_review
 
-  - name: Print Output
-    id: output
-    run: echo "${{ steps.test-action.outputs.time }}"
+jobs:
+  assign-reviewers:
+    runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+      
+        - name: Anabolic Codeowners
+          uses: moltinginstar/anabolic-codeowners@v1
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+            config: .github/codeowners.yaml # Optional
+            num-reviewers: 1 # Optional
 ```
 
-## Publishing a New Release
+### Configuration
 
-This project includes a helper script, [`script/release`](./script/release)
-designed to streamline the process of tagging and pushing new releases for
-GitHub Actions.
+To use Anabolic Codeowners, you must also create a configuration file and assign users to specific filepaths. By default, this file will be named `.github/codeowners.yaml`, or you can specify a different location in the workflow manifest. Here’s an example `codeowners.yaml` for an Nx-based monorepo:
 
-GitHub Actions allows users to select a specific version of the action to use,
-based on release tags. This script simplifies this process by performing the
-following steps:
+```yaml
+**/*:
+  - agile-codehunter
+  - atomic-committer
 
-1. **Retrieving the latest release tag:** The script starts by fetching the most
-   recent release tag by looking at the local data available in your repository.
-1. **Prompting for a new release tag:** The user is then prompted to enter a new
-   release tag. To assist with this, the script displays the latest release tag
-   and provides a regular expression to validate the format of the new tag.
-1. **Tagging the new release:** Once a valid new tag is entered, the script tags
-   the new release.
-1. **Pushing the new tag to the remote:** Finally, the script pushes the new tag
-   to the remote repository. From here, you will need to create a new release in
-   GitHub and users can easily reference the new tag in their workflows.
+apps/app1-api/**/*:
+  - alluring-creator
+
+apps/app1-api/src/app.module.ts:
+  - apex-codex
+
+apps/app1-web/**/*:
+  - anomaly-catcher
+  - aurora-cascade
+  - apex-codex
+
+'!apps/app1-api/**/*':
+  - agile-codehunter
+
+libs/app1-shared/**/*:
+  - agile-codehunter
+  - aurora-cascade
+```
+
+The last matching rule for a file overrides previous matches. You can use any path specifier supported by [`minimatch`](https://github.com/isaacs/minimatch), including:
+
+- `*` and `**`
+- Negative (`!`) patterns
+- POSIX character classes (e.g., `[[:alpha:]]`)
+- Etc.
+
+## Contributing
+
+Contributions are very welcome! Please submit pull requests or open issues for bugs and feature requests.
+
+## License
+
+Anabolic Codeowners is licensed under the [MIT License](LICENSE).
