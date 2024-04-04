@@ -17,48 +17,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        id: checkout
+      - name: Clone repo
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        id: setup-node
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v3
+
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
           cache: pnpm
 
-      - name: Install Dependencies
-        id: npm-ci
-        run: pnpm ci
+      - name: Install dependencies
+        run: pnpm install
 
-      - name: Check Format
-        id: npm-format-check
-        run: pnpm run format:check
+      - name: Check format
+        run: pnpm format:check
 
       - name: Lint
-        id: npm-lint
-        run: pnpm run lint
+        run: pnpm lint
 
       - name: Test
-        id: npm-ci-test
-        run: pnpm run ci-test
+        run: pnpm ci-test
 
   test-action:
     name: GitHub Actions Test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        id: checkout
+      - name: Clone repo
         uses: actions/checkout@v4
 
-      - name: Test Local Action
-        id: test-action
+      - name: Test local action
         uses: ./
         with:
-          milliseconds: 2000
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Print Output
-        id: output
+      - name: Print output
         run: echo "${{ steps.test-action.outputs.time }}"

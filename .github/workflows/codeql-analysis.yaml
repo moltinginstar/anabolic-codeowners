@@ -28,21 +28,17 @@ jobs:
           - TypeScript
 
     steps:
-      - name: Checkout
-        id: checkout
+      - name: Clone repo
         uses: actions/checkout@v4
 
       - name: Initialize CodeQL
-        id: initialize
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
           source-root: src
 
       - name: Autobuild
-        id: autobuild
         uses: github/codeql-action/autobuild@v3
 
-      - name: Perform CodeQL Analysis
-        id: analyze
+      - name: Perform CodeQL analysis
         uses: github/codeql-action/analyze@v3
