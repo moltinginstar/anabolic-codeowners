@@ -51,7 +51,7 @@ jobs:
           uses: actions/checkout@v4
       
         - name: Anabolic Codeowners
-          uses: moltinginstar/anabolic-codeowners@v1
+          uses: moltinginstar/anabolic-codeowners@main
           with:
             token: ${{ secrets.GITHUB_TOKEN }}
             config: .github/codeowners.yaml # Optional
