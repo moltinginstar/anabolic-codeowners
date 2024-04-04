@@ -19,25 +19,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        id: checkout
+      - name: Clone repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v3
+
       - name: Setup Node.js
-        id: setup-node
         uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
           cache: pnpm
 
-      - name: Install Dependencies
-        id: install
-        run: pnpm ci
+      - name: Install dependencies
+        run: pnpm install
 
-      - name: Lint Codebase
-        id: super-linter
+      - name: Lint codebase
         uses: super-linter/super-linter/slim@v6
         env:
           DEFAULT_BRANCH: main
