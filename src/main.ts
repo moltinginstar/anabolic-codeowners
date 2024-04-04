@@ -9,7 +9,7 @@ export const run = async () => {
     const token = core.getInput("token", { required: true });
     const client = getOctokit(token);
 
-    const configPath = core.getInput("config") || ".github/codeowners.yaml";
+    const configPath = core.getInput("config");
     const config = await parseConfig(client, configPath);
 
     const prAuthor = context.payload.sender?.login;
@@ -18,7 +18,7 @@ export const run = async () => {
     const owners = matchOwners(config, modifiedFiles, [prAuthor]);
     core.debug(`Owners: ${owners.join(", ")}`);
 
-    const numReviewers = +(core.getInput("num-reviewers") || 1);
+    const numReviewers = +core.getInput("num-reviewers");
     const reviewers = chooseRandom(owners, numReviewers);
 
     await Promise.all(
