@@ -14,8 +14,8 @@ export const getOwnerGroups = (
     const rule = findLast(rules, (rule) => minimatch(file, rule));
     if (!rule) return groups;
 
-    const validOwners = config[rule].filter((owner) => !excludeSet.has(owner));
-    if (validOwners.length === 0) return groups;
+    const validOwners = config[rule]?.filter((owner) => !excludeSet.has(owner));
+    if (validOwners?.length === 0) return groups;
 
     groups[rule] = [...new Set(validOwners)];
     return groups;

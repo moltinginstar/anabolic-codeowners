@@ -70,8 +70,12 @@ To use Anabolic Codeowners, you must also create a configuration file and assign
 apps/app1-api/**/*:
   - alluring-creator
 
+# Override the default reviewers for a specific file
 apps/app1-api/src/app.module.ts:
   - apex-codex
+
+# Exclude specific paths from review
+apps/app1-api/src/config/**/*:
 
 apps/app1-web/**/*:
   - anomaly-catcher

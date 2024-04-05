@@ -1,5 +1,5 @@
 export const findLast = <T>(
-  array: Array<T>,
+  array: T[],
   predicate: (value: T, index: number, obj: T[]) => boolean,
 ): T | undefined => {
   let l = array.length;
@@ -10,11 +10,7 @@ export const findLast = <T>(
   return undefined;
 };
 
-export const chooseRandom = <T>(
-  array: Array<T>,
-  k = 1,
-  replace = false,
-): T[] => {
+export const chooseRandom = <T>(array: T[], k = 1, replace = false): T[] => {
   const result = [];
   const copy = [...array];
 

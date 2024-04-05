@@ -22,7 +22,7 @@ export const run = async () => {
     core.debug(`Reviewers: ${reviewers}`);
 
     await Promise.all(
-      reviewers.map((reviewer) => assignReviewer(client, reviewer)),
+      reviewers.map(async (reviewer) => assignReviewer(client, reviewer)),
     );
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message);
