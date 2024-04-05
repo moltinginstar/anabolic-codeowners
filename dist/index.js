@@ -29375,7 +29375,6 @@ const core = __importStar(__nccwpck_require__(9093));
 const github_1 = __nccwpck_require__(5942);
 const match_1 = __nccwpck_require__(2110);
 const github_2 = __nccwpck_require__(8469);
-const util_1 = __nccwpck_require__(8438);
 const run = async () => {
     try {
         const token = core.getInput("token", { required: true });
@@ -29384,10 +29383,11 @@ const run = async () => {
         const config = await (0, github_2.parseConfig)(client, configPath);
         const prAuthor = github_1.context.payload.sender?.login;
         const modifiedFiles = await (0, github_2.getModifiedFiles)(client);
-        const owners = (0, match_1.matchOwners)(config, modifiedFiles, [prAuthor]);
-        core.debug(`Owners: ${owners.join(", ")}`);
+        const ownerGroups = (0, match_1.getOwnerGroups)(config, modifiedFiles, [prAuthor]);
+        core.debug(`Owner groups: ${ownerGroups}`);
         const numReviewers = +core.getInput("num-reviewers");
-        const reviewers = (0, util_1.chooseRandom)(owners, numReviewers);
+        const reviewers = (0, match_1.chooseReviewers)(ownerGroups, numReviewers);
+        core.debug(`Reviewers: ${reviewers}`);
         await Promise.all(reviewers.map((reviewer) => (0, github_2.assignReviewer)(client, reviewer)));
     }
     catch (error) {
@@ -29406,20 +29406,29 @@ exports.run = run;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.matchOwners = void 0;
+exports.chooseReviewers = exports.getOwnerGroups = void 0;
 const minimatch_1 = __nccwpck_require__(9879);
 const util_1 = __nccwpck_require__(8438);
-const matchOwners = (config, files, exclude) => {
-    const set = files.reduce((owners, file) => {
-        const pattern = (0, util_1.findLast)(Object.keys(config), (pattern) => (0, minimatch_1.minimatch)(file, pattern));
-        if (pattern)
-            config[pattern]?.forEach((owner) => owners.add(owner));
-        return owners;
-    }, new Set());
-    exclude?.forEach((owner) => set.delete(owner));
-    return Array.from(set);
+const getOwnerGroups = (config, files, exclude) => {
+    const rules = Object.keys(config);
+    const excludeSet = new Set(exclude);
+    return files.reduce((groups, file) => {
+        const rule = (0, util_1.findLast)(rules, (rule) => (0, minimatch_1.minimatch)(file, rule));
+        if (!rule)
+            return groups;
+        const validOwners = config[rule].filter((owner) => !excludeSet.has(owner));
+        if (validOwners.length === 0)
+            return groups;
+        groups[rule] = [...new Set(validOwners)];
+        return groups;
+    }, {});
 };
-exports.matchOwners = matchOwners;
+exports.getOwnerGroups = getOwnerGroups;
+const chooseReviewers = (ownerGroups, numReviewers) => {
+    const reviewers = Object.values(ownerGroups).flatMap((group) => (0, util_1.chooseRandom)(group, numReviewers));
+    return [...new Set(reviewers)];
+};
+exports.chooseReviewers = chooseReviewers;
 
 
 /***/ }),

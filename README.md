@@ -49,7 +49,7 @@ jobs:
       steps:
         - name: Checkout code
           uses: actions/checkout@v4
-      
+
         - name: Anabolic Codeowners
           uses: moltinginstar/anabolic-codeowners@main
           with:

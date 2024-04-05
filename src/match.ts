@@ -1,22 +1,34 @@
 import { minimatch } from "minimatch";
-import { findLast } from "./util";
+import { findLast, chooseRandom } from "./util";
 import type { Config, Owner, Path } from "./types";
 
-export const matchOwners = (
+export const getOwnerGroups = (
   config: Config,
   files: Path[],
   exclude?: Owner[],
+): Record<Path, Owner[]> => {
+  const rules = Object.keys(config);
+  const excludeSet = new Set(exclude);
+
+  return files.reduce<Record<Path, Owner[]>>((groups, file) => {
+    const rule = findLast(rules, (rule) => minimatch(file, rule));
+    if (!rule) return groups;
+
+    const validOwners = config[rule].filter((owner) => !excludeSet.has(owner));
+    if (validOwners.length === 0) return groups;
+
+    groups[rule] = [...new Set(validOwners)];
+    return groups;
+  }, {});
+};
+
+export const chooseReviewers = (
+  ownerGroups: Record<Path, Owner[]>,
+  numReviewers: number,
 ): Owner[] => {
-  const set = files.reduce<Set<Owner>>((owners, file) => {
-    const pattern = findLast(Object.keys(config), (pattern) =>
-      minimatch(file, pattern),
-    );
-    if (pattern) config[pattern]?.forEach((owner) => owners.add(owner));
+  const reviewers = Object.values(ownerGroups).flatMap((group) =>
+    chooseRandom(group, numReviewers),
+  );
 
-    return owners;
-  }, new Set());
-
-  exclude?.forEach((owner) => set.delete(owner));
-
-  return Array.from(set);
+  return [...new Set(reviewers)];
 };

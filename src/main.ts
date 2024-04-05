@@ -1,8 +1,7 @@
 import * as core from "@actions/core";
 import { context, getOctokit } from "@actions/github";
-import { matchOwners } from "./match";
+import { getOwnerGroups, chooseReviewers } from "./match";
 import { parseConfig, getModifiedFiles, assignReviewer } from "./github";
-import { chooseRandom } from "./util";
 
 export const run = async () => {
   try {
@@ -15,11 +14,12 @@ export const run = async () => {
     const prAuthor = context.payload.sender?.login;
 
     const modifiedFiles = await getModifiedFiles(client);
-    const owners = matchOwners(config, modifiedFiles, [prAuthor]);
-    core.debug(`Owners: ${owners.join(", ")}`);
+    const ownerGroups = getOwnerGroups(config, modifiedFiles, [prAuthor]);
+    core.debug(`Owner groups: ${ownerGroups}`);
 
     const numReviewers = +core.getInput("num-reviewers");
-    const reviewers = chooseRandom(owners, numReviewers);
+    const reviewers = chooseReviewers(ownerGroups, numReviewers);
+    core.debug(`Reviewers: ${reviewers}`);
 
     await Promise.all(
       reviewers.map((reviewer) => assignReviewer(client, reviewer)),
