@@ -11,7 +11,6 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
-[![GitHub Super-Linter](https://github.com/moltinginstar/anabolic-codeowners/actions/workflows/linter.yaml/badge.svg)](https://github.com/super-linter/super-linter)
 ![CI](https://github.com/moltinginstar/anabolic-codeowners/actions/workflows/ci.yaml/badge.svg)
 [![Check dist/](https://github.com/moltinginstar/anabolic-codeowners/actions/workflows/check-dist.yaml/badge.svg)](https://github.com/actions/typescript-action/actions/workflows/check-dist.yaml)
 [![CodeQL](https://github.com/moltinginstar/anabolic-codeowners/actions/workflows/codeql-analysis.yaml/badge.svg)](https://github.com/actions/typescript-action/actions/workflows/codeql-analysis.yaml)
@@ -54,8 +53,8 @@ jobs:
           uses: moltinginstar/anabolic-codeowners@main
           with:
             token: ${{ secrets.GITHUB_TOKEN }}
-            config: .github/codeowners.yaml # Optional
-            num-reviewers: 1 # Optional
+            config: .github/codeowners.yaml # Configuration file, optional
+            num-reviewers: 1 # Reviewers per rule, optional
 ```
 
 ### Configuration
