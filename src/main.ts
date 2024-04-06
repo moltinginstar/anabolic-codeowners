@@ -18,6 +18,10 @@ export const run = async () => {
     core.debug(`Owner groups: ${ownerGroups}`);
 
     const numReviewers = +core.getInput("num-reviewers");
+    if (isNaN(numReviewers)) {
+      throw new Error("Number of reviewers must be a valid number");
+    }
+
     const reviewers = chooseReviewers(ownerGroups, numReviewers);
     core.debug(`Reviewers: ${reviewers}`);
 

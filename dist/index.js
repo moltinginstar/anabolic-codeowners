@@ -29508,7 +29508,7 @@ const parseConfig = async (client, path) => {
         path,
     });
     if (!Array.isArray(data) && data.type === "file") {
-        return (0, yaml_1.parse)(atob(data.content));
+        return (0, yaml_1.parse)(Buffer.from(data.content, "base64").toString());
     }
     throw new Error(`Invalid config file: ${path}`);
 };
@@ -29603,6 +29603,9 @@ const run = async () => {
         const ownerGroups = (0, match_1.getOwnerGroups)(config, modifiedFiles, [prAuthor]);
         core.debug(`Owner groups: ${ownerGroups}`);
         const numReviewers = +core.getInput("num-reviewers");
+        if (isNaN(numReviewers)) {
+            throw new Error("Number of reviewers must be a valid number");
+        }
         const reviewers = (0, match_1.chooseReviewers)(ownerGroups, numReviewers);
         core.debug(`Reviewers: ${reviewers}`);
         await Promise.all(reviewers.map(async (reviewer) => (0, github_2.assignReviewer)(client, reviewer)));

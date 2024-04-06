@@ -15,7 +15,7 @@ export const parseConfig = async (
   });
 
   if (!Array.isArray(data) && data.type === "file") {
-    return parse(atob(data.content));
+    return parse(Buffer.from(data.content, "base64").toString());
   }
 
   throw new Error(`Invalid config file: ${path}`);
