@@ -1,59 +1,7 @@
 import * as core from "@actions/core";
 import * as main from "../src/main";
 
-jest.mock("@actions/github", () => ({
-  getOctokit: jest.fn(() => ({
-    rest: {
-      pulls: {
-        listFiles: jest
-          .fn()
-          .mockResolvedValueOnce({
-            data: [
-              { filename: "src/index.ts" },
-              { filename: "src/main.ts" },
-              { filename: "src/match.ts" },
-              { filename: "README.md" },
-            ],
-          })
-          .mockResolvedValue({ data: [] }),
-
-        requestReviewers: jest.fn(),
-      },
-
-      issues: {
-        createComment: jest.fn(),
-      },
-
-      repos: {
-        getContent: jest.fn().mockResolvedValue({
-          data: {
-            type: "file",
-            content: Buffer.from("src/**:\n  - owner1").toString("base64"),
-          },
-        }),
-      },
-    },
-  })),
-
-  context: {
-    sha: "sha",
-
-    repo: {
-      owner: "owner",
-      repo: "repo",
-    },
-
-    payload: {
-      sender: {
-        login: "prAuthor",
-      },
-
-      pull_request: {
-        number: 1,
-      },
-    },
-  },
-}));
+jest.mock("@actions/github");
 
 const runMock = jest.spyOn(main, "run");
 
