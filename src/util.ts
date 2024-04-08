@@ -14,8 +14,12 @@ export const chooseRandom = <T>(array: T[], k = 1, replace = false): T[] => {
   const result = [];
   const copy = [...array];
 
+  if (!replace && k > array.length) {
+    k = array.length;
+  }
+
   for (let i = 0; i < k; i++) {
-    if (!replace && copy.length === 0) break;
+    if (copy.length === 0) break;
 
     const index = Math.floor(Math.random() * copy.length);
     if (replace) {

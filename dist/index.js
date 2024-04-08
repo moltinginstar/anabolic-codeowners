@@ -29548,9 +29548,7 @@ const getModifiedFiles = async (client) => {
     } while (response.data.length);
     const modifiedFilenames = modifiedFiles.map((f) => f.filename);
     core.debug("Modified files:");
-    for (const file of modifiedFilenames) {
-        core.debug(` - ${file}`);
-    }
+    modifiedFilenames.forEach((file) => core.debug(` - ${file}`));
     return modifiedFilenames;
 };
 exports.getModifiedFiles = getModifiedFiles;
@@ -29672,8 +29670,11 @@ exports.findLast = findLast;
 const chooseRandom = (array, k = 1, replace = false) => {
     const result = [];
     const copy = [...array];
+    if (!replace && k > array.length) {
+        k = array.length;
+    }
     for (let i = 0; i < k; i++) {
-        if (!replace && copy.length === 0)
+        if (copy.length === 0)
             break;
         const index = Math.floor(Math.random() * copy.length);
         if (replace) {

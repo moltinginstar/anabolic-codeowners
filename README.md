@@ -76,20 +76,20 @@ apps/app1-api/src/app.module.ts:
 # Exclude specific paths from review
 apps/app1-api/src/config/**/*:
 
+apps/app1-api/**/*.(spec|test).ts:
+  - agile-codehunter
+
 apps/app1-web/**/*:
   - anomaly-catcher
   - aurora-cascade
   - apex-codex
-
-'!apps/app1-api/**/*':
-  - agile-codehunter
 
 libs/app1-shared/**/*:
   - agile-codehunter
   - aurora-cascade
 ```
 
-The last matching rule for a file overrides previous matches. You can use any path specifier supported by [`minimatch`](https://github.com/isaacs/minimatch), including:
+The last matching rule for a file _overrides_ previous matches. You can use any path specifier supported by [`minimatch`](https://github.com/isaacs/minimatch), including:
 
 - `*` and `**`
 - Negative (`!`) patterns

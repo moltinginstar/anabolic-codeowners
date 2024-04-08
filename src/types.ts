@@ -7,5 +7,5 @@ export type Path = string;
 export type Owner = string;
 
 export interface Config {
-  [key: Path]: Owner[];
+  [key: Path]: Owner[] | null;
 }

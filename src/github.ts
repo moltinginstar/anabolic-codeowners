@@ -61,9 +61,7 @@ export const getModifiedFiles = async (client: Octokit) => {
   const modifiedFilenames = modifiedFiles.map((f) => f.filename);
 
   core.debug("Modified files:");
-  for (const file of modifiedFilenames) {
-    core.debug(` - ${file}`);
-  }
+  modifiedFilenames.forEach((file) => core.debug(` - ${file}`));
 
   return modifiedFilenames;
 };
