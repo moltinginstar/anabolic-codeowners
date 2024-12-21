@@ -2,7 +2,7 @@
   "name": "anabolic-codeowners",
   "description": "CODEOWNERS on steroids. Built for monorepos.",
   "version": "1.0.0",
-  "author": "moltinginstar",
+  "author": "Sam <moltinginstar@gmail.com>",
   "private": true,
   "homepage": "https://github.com/moltinginstar/anabolic-codeowners",
   "repository": {
