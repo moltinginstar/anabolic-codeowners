@@ -73,7 +73,7 @@
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.0",
-    "minimatch": "^9.0.5",
+    "minimatch": "^10.0.1",
     "yaml": "^2.6.1"
   },
   "devDependencies": {
